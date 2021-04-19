@@ -2,33 +2,37 @@
 <html lang="en">
 	<head>
 		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
-		<title>JS Quiz</title>
 		<link rel="stylesheet" href="./assets/css/style.css" />
+		<title>Java Quiz</title>
 	</head>
 	<body>
-		<div class="start_btn"><button>Start quiz</button></div>
-		<!--Info Box-->
-		<div class="info_box">
-			<div class="info_title">
-				<span>Some Rules of this Quiz</span>
+		<div class="container">
+			<!--Flexbox with view score and timer-->
+			<div class="scoreTimerContainer">
+				<div class="scoreContainer">
+					<button type="button" id="viewScoreBtn">View High Score</button>
+				</div>
+				<div class="timerContainer">
+					<p id="timer"></p>
+				</div>
 			</div>
-			<div class="info_list">
-				<div class="info">Rule<span>75 seconds</span></div>
-				<div class="info">Rule</div>
-				<div class="info">Rule</div>
-				<div class="info">Rule</div>
-			</div>
-			<div class="buttons">
-				<button class="quit">Exit Quiz</button>
-				<button class="restart">continue</button>
+			<div class="questionContainer">
+				<h1 id="question">Welcome to Coding Quiz Challenge</h1>
+				<p id="quizCover" class="questionText">
+					Try to answer the following questions within the time limit. Keep in mind that we will penalize your time for answering incorrectly
+				</p>
+				<div class="startButton">
+					<button id="startQuizBtn" class="startBtn">Start Quiz</button>
+				</div>
+				<!--displays answer options-->
+				<div id="answers" class="answerContainer"></div>
+				<!-- displays user results-->
+				<p id="user-result" class="results"></p>
 			</div>
 		</div>
 
-		<!--Quiz box-->
-
-		<footer></footer>
 		<script src="./assets/js/script.js"></script>
 	</body>
 </html>
