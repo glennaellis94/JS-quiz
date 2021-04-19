@@ -1,5 +1,5 @@
-// A lot of global variables half of them being elements
-var startBtn = document.getElementById("startQuizBtn");
+//Global variables
+var startBtn = document.getElementById("startBtn");
 var timer = document.getElementById("timer");
 var viewScore = document.getElementById("viewScoreBtn");
 var quizCover = document.getElementById("quizCover");
@@ -15,7 +15,7 @@ var answer4;
 var points = 0;
 var arrPoints = [];
 
-//array of objects containing the question, answer and the choices the user has.
+//array of questions and answers
 var questionsArray = [
 	{
 		question: "Commonly used data types DO Not include which of the following?",
@@ -44,30 +44,28 @@ var questionsArray = [
 	},
 ];
 
-//This starts the quiz by removing the short paragraph describing the quiz and starting the time
+//starts the quiz with the click of start quiz button and removes the quiz cover.
 function startQuiz() {
 	quizCover.style.display = "none";
 	timer.textContent = "Time: 50";
 	startBtn.style.display = "none";
-
 	countdown();
 }
 
-// Timer that counts down from 50
+// Timer function
 function countdown() {
-	// Use the `setInterval()` method to call a function to be executed every 1000 milliseconds
 	var timeInterval = setInterval(function () {
-		// As long as the `timeLeft` is greater than 1
-
+		//if timer is less than 0 or we finished question 5
 		if (timeLeft < 0 || currentQuestion == 5) {
-			// Once `timeLeft` gets to 0, set `timerEl` to an empty string
+			// Once time gets to 0, set `timerEl` to an empty string
 			timer.textContent = "";
-			// Use `clearInterval()` to stop the timer
+			// stops timer
 			clearInterval(timeInterval);
-
-			// End game function here
+			// add score function
 			addScore();
-		} else if (timeLeft >= 0) {
+		}
+		//keeps quiz running
+		else if (timeLeft >= 0) {
 			timer.textContent = "Time: " + timeLeft;
 			timeLeft--;
 		}
@@ -76,7 +74,6 @@ function countdown() {
 	displayQuestion();
 }
 
-//This function is used to display the questions and answers
 function displayQuestion() {
 	//Displays questions
 	question.textContent = questionsArray[currentQuestion].question;
@@ -90,18 +87,17 @@ function displayQuestion() {
 	answers.innerHTML = "<ul><li>" + answer1 + "</li><li>" + answer2 + "</li><li>" + answer3 + "</li><li>" + answer4 + "</li></ul>";
 }
 
-//This function is called everytime something is pressed in answers div
+//function to track clicks
 function checkAnswer(event) {
 	event.preventDefault();
 	var button = document.getElementById(event.target.id);
 	var userInitials;
 
-	//the user at the end can press initals box but we dont want it to do anything when he does
 	if (button.id === "initials") {
 		return;
 	}
 
-	//if they press submit score we get the initials and saveScore function
+	//saves initials
 	if (button.id === "submitScore") {
 		userInitials = document.getElementById("initials");
 		saveScore(userInitials);
@@ -137,7 +133,7 @@ function checkAnswer(event) {
 	}
 }
 
-// We are giving the user the chance to add their score
+// displaying score from test
 function addScore() {
 	timer.innerHTML = "";
 	question.textContent = "All done!";
@@ -151,7 +147,7 @@ function addScore() {
 	return [initials, points];
 }
 
-//we are saving score to cache
+//saves initials and scores to local storage
 function saveScore(userInput) {
 	console.log(userInput.value);
 
@@ -165,9 +161,9 @@ function saveScore(userInput) {
 	localStorage.setItem("scores", JSON.stringify(arrPoints));
 }
 
-//Creates a table with the scores getting from the local storage, didnt have time to solve and complete this
+//attempt to retrieve initials and scores from local storage
 
-function viewScores(scores) {
+function displayScores(scores) {
 	var savedScores = localStorage.getItem("scores", JSON.stringify(arrPoints));
 	if (!savedScores) {
 		return false;
@@ -181,10 +177,9 @@ function viewScores(scores) {
 	// loop through savedTasks array
 	for (var i = 0; i < savedScores.length; i++) {
 		// pass each task object into the `createTaskEl()` function
-		question.textContent = "top" + savedScores[i].value;
+		question.textContent = "top Scores " + savedScores[i].value;
 	}
 }
-
 startBtn.addEventListener("click", startQuiz);
 answers.addEventListener("click", checkAnswer);
-viewScore.addEventListener("click", viewScores);
+viewScore.addEventListener("click", displayScores);
