@@ -149,8 +149,6 @@ function addScore() {
 
 //saves initials and scores to local storage
 function saveScore(userInput) {
-	console.log(userInput.value);
-
 	var userScore = {
 		initials: userInput.value,
 		score: points,
